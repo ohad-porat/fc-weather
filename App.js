@@ -16,7 +16,9 @@ export default function App() {
       const currentLocation = await Location.getCurrentPositionAsync()
       const { latitude, longitude } = currentLocation.coords
       alert(`latitude: ${latitude} longitude: ${longitude}`)
-    } catch (error) {}
+    } catch (error) {
+      console.error(`Error in fetch: ${error.message}`)
+    }
   }
 
   useEffect(() => {
