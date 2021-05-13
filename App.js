@@ -11,12 +11,14 @@ export default function App() {
       let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== "granted") {
         setErrorMessage("Access to location is needed to run the app")
-        return
+        alert(errorMessage)
       }
       const currentLocation = await Location.getCurrentPositionAsync()
       const { latitude, longitude } = currentLocation.coords
       alert(`latitude: ${latitude} longitude: ${longitude}`)
-    } catch (error) {}
+    } catch (error) {
+      console.error(`Error in fetch: ${error.message}`)
+    }
   }
 
   useEffect(() => {
