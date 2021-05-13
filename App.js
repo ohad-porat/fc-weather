@@ -5,7 +5,6 @@ import * as Location from "expo-location"
 
 export default function App() {
   const [errorMessage, setErrorMessage] = useState(null)
-  console.log("yoo")
   const load = async () => {
     try {
       let { status } = await Location.requestForegroundPermissionsAsync()
@@ -13,8 +12,8 @@ export default function App() {
         setErrorMessage("Access to location is needed to run the app")
         return
       }
-      const location = await Location.getCurrentPositionAsync()
-      const { latitude, longitude } = location.coords
+      const currentLocation = await Location.getCurrentPositionAsync()
+      const { latitude, longitude } = currentLocation.coords
       alert(`latitude: ${latitude} longitude: ${longitude}`)
     } catch (error) {}
   }
