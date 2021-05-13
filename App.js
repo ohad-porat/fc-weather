@@ -5,6 +5,7 @@ import * as Location from "expo-location"
 
 export default function App() {
   const [errorMessage, setErrorMessage] = useState(null)
+  
   const load = async () => {
     try {
       let { status } = await Location.requestForegroundPermissionsAsync()
