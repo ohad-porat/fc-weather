@@ -1,8 +1,10 @@
 import { StatusBar } from "expo-status-bar"
 import React, { useEffect, useState } from "react"
-import { StyleSheet, Text, SafeAreaView } from "react-native"
+import { StyleSheet, Text, SafeAreaView, View, Image } from "react-native"
 import * as Location from "expo-location"
 import { WEATHER_API_KEY } from "react-native-dotenv"
+
+import WeatherInfo from "./components/WeatherInfo"
 
 const baseWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?`
 
@@ -37,14 +39,18 @@ export default function App() {
   }, [])
 
   if (currentWeather) {
-    const tempCelsius = Math.floor(currentWeather.main.temp)
-    const tempFahrenheit = Math.floor((tempCelsius * 1.8) + 32)
-
-
     return (
       <SafeAreaView style={styles.container}>
-        <Text>{tempCelsius}°C {"         "}{tempFahrenheit}°F</Text>
         <StatusBar style="auto" />
+        <View style={styles.logoContainer}>
+          <Image
+            style={styles.mainLogo}
+            source={require("./assets/fc-weather-logo.png")}
+          ></Image>
+        </View>
+        <View style={styles.weatherInfoContainer}>
+          <WeatherInfo currentWeather={currentWeather} />
+        </View>
       </SafeAreaView>
     )
   } else {
@@ -61,7 +67,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center"
+  },
+  logoContainer: {
+    alignItems: "center"
+  },
+  mainLogo: {
+    height: 110,
+    width: 100,
+    marginTop: 10,
+  },
+  weatherInfoContainer: {
+    flex: 1,
+    justifyContent: "flex-start",
+    marginTop: 100,
   },
 })
