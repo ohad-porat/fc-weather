@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import { StyleSheet, Text, SafeAreaView, View, Image } from "react-native"
 import * as Location from "expo-location"
 import { WEATHER_API_KEY } from "react-native-dotenv"
+import PTRView from "react-native-pull-to-refresh"
 
 import WeatherInfo from "./components/WeatherInfo"
 
@@ -28,6 +29,7 @@ export default function App() {
       if (response.ok) {
         const weatherData = await response.json()
         setCurrentWeather(weatherData)
+        return true
       }
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
@@ -38,19 +40,29 @@ export default function App() {
     getCurrentWeather()
   }, [])
 
+  const refreshHandler = () => {
+    return new Promise((resolve) => {
+      if (getCurrentWeather()) {
+        resolve()
+      }
+    })
+  }
+
   if (currentWeather) {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar style="auto" />
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.mainLogo}
-            source={require("./assets/fc-weather-logo.png")}
-          ></Image>
-        </View>
-        <View style={styles.weatherInfoContainer}>
-          <WeatherInfo currentWeather={currentWeather} />
-        </View>
+        <PTRView onRefresh={refreshHandler}>
+          <StatusBar style="auto" />
+          <View style={styles.logoContainer}>
+            <Image
+              style={styles.mainLogo}
+              source={require("./assets/fc-weather-logo.png")}
+            ></Image>
+          </View>
+          <View style={styles.weatherInfoContainer}>
+            <WeatherInfo currentWeather={currentWeather} />
+          </View>
+        </PTRView>
       </SafeAreaView>
     )
   } else {
@@ -69,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   logoContainer: {
-    alignItems: "center"
+    alignItems: "center",
   },
   mainLogo: {
     height: 110,
