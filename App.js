@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
   mainLogo: {
     height: 110,
     width: 100,
-    marginTop: 40,
+    marginTop: 60,
   },
   weatherInfoContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    marginTop: 100,
-    marginBottom: 30
+    marginTop: 30,
+    marginBottom: 40
   },
 })

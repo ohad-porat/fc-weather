@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   },
   tempContainer: {
     flexDirection: "row",
+    marginTop: -15
   },
   tempText: {
     fontSize: 40,
