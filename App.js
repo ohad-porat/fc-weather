@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: "center",
-    display: "none",
   },
   mainLogo: {
     height: 110,
