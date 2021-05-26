@@ -6,6 +6,7 @@ import { WEATHER_API_KEY } from "react-native-dotenv"
 import PTRView from "react-native-pull-to-refresh"
 
 import WeatherMainInfo from "./components/WeatherMainInfo"
+import WeatherDetails from "./components/WeatherDetails"
 
 const baseWeatherUrl = `https://api.openweathermap.org/data/2.5/`
 
@@ -92,6 +93,7 @@ export default function App() {
           <View style={styles.weatherInfoContainer}>
             <WeatherMainInfo currentWeather={currentWeather} />
           </View>
+          <WeatherDetails currentWeather={currentWeather} />
         </PTRView>
       </SafeAreaView>
     )
@@ -124,7 +126,8 @@ const styles = StyleSheet.create({
   weatherInfoContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    marginTop: 100,
+    marginTop: 30,
+    marginBottom: 40
   },
   loadingText: {
     alignItems: "center",

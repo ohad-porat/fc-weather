@@ -14,8 +14,8 @@ export default function WeatherMainInfo({ currentWeather }) {
       <Text style={styles.locationName}>{currentWeather.name}</Text>
       <Image style={styles.weatherIcon} source={{ uri: iconUrl }} />
       <View style={styles.tempContainer}>
-        <Text style={styles.celsiusText}>{tempCelsius}°C</Text>
-        <Text style={styles.fahrenheitText}>{tempFahrenheit}°F</Text>
+        <Text style={{...styles.tempText, marginRight: 40}}>{tempCelsius}°C</Text>
+        <Text style={styles.tempText}>{tempFahrenheit}°F</Text>
       </View>
       <Text style={styles.weatherDescription}>
         {currentWeather.weather[0].description}
@@ -38,13 +38,9 @@ const styles = StyleSheet.create({
   },
   tempContainer: {
     flexDirection: "row",
+    marginTop: -15
   },
-  celsiusText: {
-    marginRight: 30,
-    fontSize: 40,
-    color: colors.primaryColor,
-  },
-  fahrenheitText: {
+  tempText: {
     fontSize: 40,
     color: colors.primaryColor,
   },
