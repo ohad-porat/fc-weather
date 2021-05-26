@@ -10,7 +10,10 @@ import {
 
 import colors from "../utils/index"
 
-export default function WeatherDetails({ currentWeather }) {
+export default function WeatherDetails({
+  currentWeather,
+  currentPrecipitation,
+}) {
   const feelsLike = {
     celsius: Math.floor(currentWeather.main.feels_like),
     fahrenheit: Math.floor(currentWeather.main.feels_like * 1.8 + 32),
@@ -20,7 +23,12 @@ export default function WeatherDetails({ currentWeather }) {
     kilometersPerHour: Math.floor(currentWeather.wind.speed * 3.6),
     milesPerHour: Math.floor(currentWeather.wind.speed * 2.236936),
   }
-  const precipitation = 10
+  let precipitation
+  if (currentPrecipitation === 1) {
+    precipitation = 100
+  } else {
+    precipitation = currentPrecipitation * 100
+  }
 
   return (
     <View style={styles.weatherDetailsContainer}>

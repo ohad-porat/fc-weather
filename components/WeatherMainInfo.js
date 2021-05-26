@@ -3,7 +3,7 @@ import { Text, View, SafeAreaView, StyleSheet, Image } from "react-native"
 
 import colors from "../utils/index"
 
-export default function WeatherInfo({ currentWeather }) {
+export default function WeatherMainInfo({ currentWeather }) {
   const tempCelsius = Math.floor(currentWeather.main.temp)
   const tempFahrenheit = Math.floor(tempCelsius * 1.8 + 32)
 
