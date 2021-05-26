@@ -5,15 +5,15 @@ import * as Location from "expo-location"
 import { WEATHER_API_KEY } from "react-native-dotenv"
 import PTRView from "react-native-pull-to-refresh"
 
-import CurrentWeatherInfo from "./components/CurrentWeatherInfo"
+import WeatherMainInfo from "./components/WeatherMainInfo"
 
 const baseWeatherUrl = `https://api.openweathermap.org/data/2.5/`
 
 export default function App() {
   const [errorMessage, setErrorMessage] = useState()
   const [currentWeather, setCurrentWeather] = useState()
-  const [hourlyWeather, setHourlyWeather] = useState()
-  const [dailyWeather, setDailyWeather] = useState()
+  // const [hourlyWeather, setHourlyWeather] = useState()
+  // const [dailyWeather, setDailyWeather] = useState()
 
   const getCurrentWeather = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync()
@@ -42,37 +42,37 @@ export default function App() {
     getCurrentWeather()
   }, [])
 
-  const getHourlyAndDailyWeather = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync()
-    if (status !== "granted") {
-      setErrorMessage("Access to location is needed to run the app")
-      alert(errorMessage)
-    }
-    try {
-      const currentLocation = await Location.getCurrentPositionAsync()
-      const { latitude, longitude } = currentLocation.coords
+  // const getHourlyAndDailyWeather = async () => {
+  //   let { status } = await Location.requestForegroundPermissionsAsync()
+  //   if (status !== "granted") {
+  //     setErrorMessage("Access to location is needed to run the app")
+  //     alert(errorMessage)
+  //   }
+  //   try {
+  //     const currentLocation = await Location.getCurrentPositionAsync()
+  //     const { latitude, longitude } = currentLocation.coords
 
-      const currentLocationWeatherUrl = `${baseWeatherUrl}onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=current,minutely,alerts&appid=${WEATHER_API_KEY}`
+  //     const currentLocationWeatherUrl = `${baseWeatherUrl}onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=current,minutely,alerts&appid=${WEATHER_API_KEY}`
 
-      const response = await fetch(currentLocationWeatherUrl)
-      if (response.ok) {
-        const weatherData = await response.json()
-        setDailyWeather(weatherData.daily)
-        setHourlyWeather(weatherData.hourly)
-        return true
-      }
-    } catch (error) {
-      console.error(`Error in fetch: ${error.message}`)
-    }
-  }
+  //     const response = await fetch(currentLocationWeatherUrl)
+  //     if (response.ok) {
+  //       const weatherData = await response.json()
+  //       setDailyWeather(weatherData.daily)
+  //       setHourlyWeather(weatherData.hourly)
+  //       return true
+  //     }
+  //   } catch (error) {
+  //     console.error(`Error in fetch: ${error.message}`)
+  //   }
+  // }
 
-  useEffect(() => {
-    getHourlyAndDailyWeather()
-  }, [])
+  // useEffect(() => {
+  //   getHourlyAndDailyWeather()
+  // }, [])
 
   const refreshHandler = () => {
     return new Promise((resolve) => {
-      if (getCurrentWeather() && getHourlyAndDailyWeather()) {
+      if (getCurrentWeather()) {
         resolve()
       }
     })
@@ -90,7 +90,7 @@ export default function App() {
             ></Image>
           </View>
           <View style={styles.weatherInfoContainer}>
-            <CurrentWeatherInfo currentWeather={currentWeather} />
+            <WeatherMainInfo currentWeather={currentWeather} />
           </View>
         </PTRView>
       </SafeAreaView>
@@ -98,7 +98,9 @@ export default function App() {
   } else {
     return (
       <SafeAreaView style={styles.container}>
-        <Text>Oh no! Something went wrong.</Text>
+        <View style={styles.loadingText}>
+          <Text>Loading...</Text>
+        </View>
         <StatusBar style="auto" />
       </SafeAreaView>
     )
@@ -123,5 +125,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     marginTop: 100,
+  },
+  loadingText: {
+    alignItems: "center",
   },
 })
