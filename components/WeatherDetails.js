@@ -23,12 +23,7 @@ export default function WeatherDetails({
     kilometersPerHour: Math.floor(currentWeather.wind.speed * 3.6),
     milesPerHour: Math.floor(currentWeather.wind.speed * 2.236936),
   }
-  let precipitation
-  if (currentPrecipitation === 1) {
-    precipitation = 100
-  } else {
-    precipitation = currentPrecipitation * 100
-  }
+  const precipitation = Math.floor(currentPrecipitation * 100)
 
   return (
     <View style={styles.weatherDetailsContainer}>

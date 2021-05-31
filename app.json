@@ -28,6 +28,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "FC-Weather is a weather app that displays the weather in both metric and imperial units at the same time.",
+    "githubUrl": "https://github.com/ohad-porat/fc-weather"
   }
 }
