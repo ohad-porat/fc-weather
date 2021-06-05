@@ -83,7 +83,7 @@ export default function MainPage({ navigation }) {
             <View style={{ ...styles.buttonView, marginRight: 30 }}>
               <Text
                 style={styles.button}
-                onPress={() => navigation.push("Hourly Weather")}
+                onPress={() => navigation.push("HourlyWeather")}
               >
                 Hourly Weather
               </Text>
@@ -91,7 +91,7 @@ export default function MainPage({ navigation }) {
             <View style={styles.buttonView}>
               <Text
                 style={styles.button}
-                onPress={() => navigation.push("Daily Weather")}
+                onPress={() => navigation.push("DailyWeather")}
               >
                 Daily Weather
               </Text>
@@ -125,20 +125,21 @@ const styles = StyleSheet.create({
   mainLogo: {
     height: 100,
     width: 85,
-    marginTop: 60,
+    marginTop: 10,
   },
   weatherInfoContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    marginTop: 20,
-    marginBottom: 40,
+    marginTop: 10,
+    marginBottom: 25,
   },
   buttonsContainer: {
     justifyContent: "center",
     flexDirection: "row",
+    marginBottom: 20
   },
   buttonView: {
-    marginTop: 10,
+    marginTop: 5,
     backgroundColor: colors.primaryColor,
     padding: 7,
     borderRadius: 14,

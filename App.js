@@ -8,12 +8,26 @@ import HourlyWeather from "./components/HourlyWeather"
 
 const AuthStack = createStackNavigator()
 
-export default () => (
-  <NavigationContainer>
-    <AuthStack.Navigator>
-      <AuthStack.Screen name="Main Page" component={MainPage} />
-      <AuthStack.Screen name="Daily Weather" component={DailyWeather} />
-      <AuthStack.Screen name="Hourly Weather" component={HourlyWeather} />
-    </AuthStack.Navigator>
-  </NavigationContainer>
-)
+export default function App() {
+  return (
+    <NavigationContainer>
+      <AuthStack.Navigator>
+        <AuthStack.Screen
+          name="MainPage"
+          component={MainPage}
+          options={{ title: "Main Page" }}
+        />
+        <AuthStack.Screen
+          name="DailyWeather"
+          component={DailyWeather}
+          options={{ title: "Daily Weather" }}
+        />
+        <AuthStack.Screen
+          name="HourlyWeather"
+          component={HourlyWeather}
+          options={{ title: "Hourly Weather" }}
+        />
+      </AuthStack.Navigator>
+    </NavigationContainer>
+  )
+}
