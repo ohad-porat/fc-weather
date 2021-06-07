@@ -127,11 +127,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   timeText: {
-    fontSize: 20,
+    fontSize: 15,
   },
   weatherIcon: {
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
     marginLeft: 10,
   },
   tempContainer: {
@@ -139,8 +139,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   tempText: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "600",
+    color: colors.primaryColor
   },
   dataContainer: {
     flexDirection: "row",
@@ -149,6 +150,6 @@ const styles = StyleSheet.create({
   },
   dataText: {
     marginLeft: 10,
-    fontSize: 16,
+    fontSize: 14,
   },
 })
