@@ -34,8 +34,7 @@ export default function HourlyWeatherInfo({ route }) {
 
     const month = date.getUTCMonth() + 1
     const day = date.getUTCDate()
-    const dayName = daysName[date.getDay() + 1]
-    console.log(dayName)
+    const dayName = daysName[date.getDay()]
 
     if (hours === 0) {
       hoursOutput = `12 AM`
