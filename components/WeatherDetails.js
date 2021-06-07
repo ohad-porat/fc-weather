@@ -8,7 +8,7 @@ import {
   faCloudShowersHeavy,
 } from "@fortawesome/free-solid-svg-icons"
 
-import colors from "../utils/colors"
+import colors from "../services/colors"
 
 export default function WeatherDetails({
   currentWeather,

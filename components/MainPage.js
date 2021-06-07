@@ -5,7 +5,7 @@ import { WEATHER_API_KEY } from "react-native-dotenv"
 import PTRView from "react-native-pull-to-refresh"
 
 import getCurrentLocation from "../services/getCurrentLocation"
-import colors from "../utils/colors"
+import colors from "../services/colors"
 
 import WeatherMainInfo from "./WeatherMainInfo"
 import WeatherDetails from "./WeatherDetails"
@@ -15,6 +15,9 @@ const baseWeatherUrl = `https://api.openweathermap.org/data/2.5/`
 export default function MainPage({ navigation }) {
   const [currentWeather, setCurrentWeather] = useState()
   const [currentPrecipitation, setCurrentPrecipitation] = useState()
+  const [hourlyWeather, setHourlyWeather] = useState()
+  const [dailyWeather, setDailyWeather] = useState()
+  const [timezoneOffset, setTimezoneOffset] = useState()
 
   const getCurrentWeather = async () => {
     const currentLocation = await getCurrentLocation()
@@ -41,6 +44,9 @@ export default function MainPage({ navigation }) {
       if (response.ok) {
         const weatherData = await response.json()
         setCurrentPrecipitation(weatherData.hourly[0].pop)
+        setHourlyWeather(weatherData.hourly)
+        setDailyWeather(weatherData.daily)
+        setTimezoneOffset(weatherData.timezone_offset)
         return true
       }
     } catch (error) {
@@ -83,7 +89,9 @@ export default function MainPage({ navigation }) {
             <View style={{ ...styles.buttonView, marginRight: 30 }}>
               <Text
                 style={styles.button}
-                onPress={() => navigation.push("HourlyWeather")}
+                onPress={() =>
+                  navigation.push("HourlyWeather", { hourlyWeather, timezoneOffset })
+                }
               >
                 Hourly Weather
               </Text>
@@ -91,7 +99,9 @@ export default function MainPage({ navigation }) {
             <View style={styles.buttonView}>
               <Text
                 style={styles.button}
-                onPress={() => navigation.push("DailyWeather")}
+                onPress={() =>
+                  navigation.push("DailyWeather", { dailyWeather, timezoneOffset })
+                }
               >
                 Daily Weather
               </Text>
@@ -136,12 +146,12 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     justifyContent: "center",
     flexDirection: "row",
-    marginBottom: 20
+    marginBottom: 20,
   },
   buttonView: {
     marginTop: 5,
     backgroundColor: colors.primaryColor,
-    padding: 7,
+    padding: 8,
     borderRadius: 14,
   },
   button: {
