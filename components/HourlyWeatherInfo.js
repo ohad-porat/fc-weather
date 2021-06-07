@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 import colors from "../services/colors"
-import daysName from "../services/daysName"
+import dayNamesArray from "../services/dayNamesArray"
 
 export default function HourlyWeatherInfo({ route }) {
   const { hourlyWeather, timezoneOffset } = route.params
@@ -32,13 +32,13 @@ export default function HourlyWeatherInfo({ route }) {
     let hoursOutput
     let dayOutput
 
-    const month = date.getUTCMonth() + 1
-    const day = date.getUTCDate()
-    const dayName = daysName[date.getDay()]
-
     if (hours === 0) {
+      const month = date.getUTCMonth() + 1
+      const dayNumber = date.getUTCDate()
+      const dayName = dayNamesArray[0][date.getDay()]
+
       hoursOutput = `12 AM`
-      dayOutput = <Text style={styles.dayText}>{`${month}/${day}`} {dayName}</Text>
+      dayOutput = <Text style={styles.dayText}>{`${month}/${dayNumber}`} {dayName}</Text>
     } else if (hours > 12) {
       hoursOutput = `${hours - 12} PM`
     } else if (hours === 12) {
@@ -61,19 +61,19 @@ export default function HourlyWeatherInfo({ route }) {
           <View>
             <View style={{ ...styles.dataContainer, marginTop: 10 }}>
               <FontAwesomeIcon
-                icon={faTint}
-                size={20}
-                color={colors.primaryColor}
-              />
-              <Text style={styles.dataText}>{hour.humidity}%</Text>
-            </View>
-            <View style={styles.dataContainer}>
-              <FontAwesomeIcon
                 icon={faCloudShowersHeavy}
                 size={20}
                 color={colors.primaryColor}
               />
               <Text style={styles.dataText}>{precipitation}%</Text>
+            </View>
+            <View style={styles.dataContainer}>
+              <FontAwesomeIcon
+                icon={faTint}
+                size={20}
+                color={colors.primaryColor}
+              />
+              <Text style={styles.dataText}>{hour.humidity}%</Text>
             </View>
           </View>
         </View>
